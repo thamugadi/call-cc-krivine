@@ -26,10 +26,12 @@ This program is based on a [compact representation of the Krivine machine](https
 ``t ⋆ π`` describes a state, where ``t`` is a term and ``π`` is a stack of terms. Pushing ``u`` on  ``π`` is written ``u :: π``.  
   
 To implement ``call/cc``, we allow ourselves to have a term that carries a stack in the form ``continuation π``.  
-  
-*Before*|*After*|  
-|-|-|--|  
-|``t s ⋆ π`` | ``t ⋆ s :: π`` |  
-|``λx:τ.t ⋆ s :: π`` | ``t[x := s] ⋆ π`` |  
-|``call/cc f ⋆ π`` |``f ⋆ continuation π :: π``|  
+
+
+
+*Before*                        |*After*|  
+|-                              |-  
+|``t s ⋆ π``                    | ``t ⋆ s :: π`` 
+|``λx:τ.t ⋆ s :: π``            | ``t[x := s] ⋆ π``   
+|``call/cc f ⋆ π``              |``f ⋆ continuation π :: π``
 | ``continuation π₁ ⋆ s :: π₂`` | ``s ⋆ π₁``
