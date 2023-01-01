@@ -14,7 +14,7 @@ t2str (CC) = "call/cc"
 t2str (Cont c) = "continuation " ++ show c
 
 showKrivine :: Either String [(Term, [Term])] -> String
-showKrivine (Left s) = s
+showKrivine (Left s) = s++"\n"
 showKrivine (Right []) = ""
 --showKrivine (Right ((t,s):kr)) =
 --  (t2str t)++" *** "++(filter (/= '"') $ show $ map t2str s)++"\n"++(showKrivine (Right kr))
