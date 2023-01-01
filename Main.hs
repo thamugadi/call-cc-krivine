@@ -9,4 +9,4 @@ exec s = krivine (runParser parseTerm "" s)
 main :: IO ()
 main = do
   args <- getArgs
-  putStrLn $ showKrivine $ exec $ head $ args
+  putStr $ showKrivine $ exec $ head $ args
