@@ -61,40 +61,35 @@ parseApply2 :: Parser Term
 parseApply2 = lexeme $ do
   _ <- symbol "("
   a <- parseApply
-  _ <- symbol ")"
-  skipMany (symbol "(")
   b <- parseTerm
-  skipMany (symbol ")")
+  _ <- (symbol ")")
   return (Apply a b)
 
 parseApplyL :: Parser Term
 parseApplyL = lexeme $ do
-  skipMany (symbol "(")
+  _ <- symbol "("
   a <- parseLambda
-  skipMany (symbol ")")
-  skipMany (symbol "(")
   b <- parseTerm 
-  skipMany (symbol ")")
+  _ <- symbol ")"
   return (Apply a b)
 
 parseApplyC :: Parser Term
 parseApplyC = lexeme $ do
-  skipMany (symbol "(")
+  _ <- (symbol "(")
   a <- parseCC
   b <- parseTerm
-  skipMany (symbol ")")
+  _ <- (symbol ")")
   return (Apply a b)
 
 parseApplyV :: Parser Term
 parseApplyV = lexeme $ do
-  skipMany (symbol "(")
+  _ <- (symbol "(")
   a <- parseVar
   b <- parseTerm
-  skipMany (symbol ")")
+  _ <- (symbol ")")
   return (Apply a b)
 
 parseApply :: Parser Term
-parseApply = try parseApply2 <|> try parseApplyL <|> parseApplyC 
-
+parseApply = try parseApply2 <|> try parseApplyL <|> try parseApplyC <|> parseApplyV
 parseTerm :: Parser Term
-parseTerm = (try parseApply) <|> try parseLambda <|> try parseVar <|> parseApplyV
+parseTerm = (try parseApply) <|> try parseLambda <|> try parseVar
