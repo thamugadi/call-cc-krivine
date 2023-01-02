@@ -27,5 +27,5 @@ initType (App t1 t2) =
 composeTypeCheck :: Type -> Type -> Bool 
 composeTypeCheck (Base a) _ = False
 composeTypeCheck a b
-  | initType a == b = True
+  | a == initType b = True
   | otherwise = False
