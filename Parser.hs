@@ -22,20 +22,18 @@ symbol = L.symbol sc
 
 parseBase :: Parser Type
 parseBase = lexeme $ do
-  skipMany (symbol "(")
   t <- some alphaNumChar
-  skipMany (symbol ")")
-  return (Base t)
+  return $ Base t
 
 parseApp :: Parser Type
 parseApp = do
   t1 <- parseBase 
   _  <- symbol "->" <|> symbol "→"
   t2 <- parseType 
-  return (App t1 t2) 
+  return $ App t1 t2
 
 parseType :: Parser Type
-parseType = (try parseApp <|> parseBase)
+parseType = try parseApp <|> parseBase
 
 parseCC :: Parser Term
 parseCC = lexeme $ do
@@ -45,7 +43,7 @@ parseCC = lexeme $ do
 parseVar :: Parser Term 
 parseVar = lexeme $ do
   t <- some alphaNumChar
-  return (Var t)
+  return $ Var t
 
 parseLambda :: Parser Term
 parseLambda = lexeme $ do
@@ -55,15 +53,15 @@ parseLambda = lexeme $ do
   t <- parseType
   _ <- symbol "."
   e <- parseTerm
-  return (Lambda x t e)
+  return $ Lambda x t e
 
 parseApply2 :: Parser Term
 parseApply2 = lexeme $ do
   _ <- symbol "("
   a <- parseApply
   b <- parseTerm
-  _ <- (symbol ")")
-  return (Apply a b)
+  _ <- symbol ")"
+  return $ Apply a b
 
 parseApplyL :: Parser Term
 parseApplyL = lexeme $ do
@@ -71,25 +69,25 @@ parseApplyL = lexeme $ do
   a <- parseLambda
   b <- parseTerm 
   _ <- symbol ")"
-  return (Apply a b)
+  return $ Apply a b
 
 parseApplyC :: Parser Term
 parseApplyC = lexeme $ do
-  _ <- (symbol "(")
+  _ <- symbol "("
   a <- parseCC
   b <- parseTerm
-  _ <- (symbol ")")
-  return (Apply a b)
+  _ <- symbol ")"
+  return $ Apply a b
 
 parseApplyV :: Parser Term
 parseApplyV = lexeme $ do
-  _ <- (symbol "(")
+  _ <- symbol "("
   a <- parseVar
   b <- parseTerm
-  _ <- (symbol ")")
-  return (Apply a b)
+  _ <- symbol ")"
+  return $ Apply a b
 
 parseApply :: Parser Term
 parseApply = try parseApply2 <|> try parseApplyL <|> try parseApplyC <|> parseApplyV
 parseTerm :: Parser Term
-parseTerm = (try parseApply) <|> try parseLambda <|> try parseVar
+parseTerm = try parseApply <|> try parseLambda <|> try parseVar
