@@ -6,12 +6,16 @@ krivine1 :: (Term, [Term]) -> Either String (Term, [Term])
 krivine1 a
   | not $ typecheck a = Left "Type Error" --Typechecking to be implemented.
 krivine1 (Var x, t) = Right (Var x, t)
+
 krivine1 (Lambda x ty t, []) = Right (Lambda x ty t, [])
 krivine1 (Lambda x ty t, (s:stack)) = Right (beta x s t, stack)
+
 krivine1 (Apply CC f, stack) = Right (f, (Cont stack):stack)
-krivine1 (Apply a b, stack) = Right (a, b:stack)
 krivine1 (Cont stack1, s:stack2) = Right (s, stack1)
-krivine1 _ = Left "Type Error"
+
+krivine1 (Apply a b, stack) = Right (a, b:stack)
+
+krivine1 _ = Left "Error"
 --krivine1 (a,b) = Right (a,b) -- for debug
 
 krivine_ :: (Term, [Term]) -> [Either String (Term, [Term])]
