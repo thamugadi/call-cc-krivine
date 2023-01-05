@@ -1,10 +1,8 @@
 module Krivine where
 import Lambda
-import Typecheck
+--Typechecking to be implemented.
 
 krivine1 :: (Term, [Term]) -> Either String (Term, [Term])
-krivine1 a
-  | not $ typecheck a = Left "Type Error" --Typechecking to be implemented.
 krivine1 (Var x, t) = Right (Var x, t)
 
 krivine1 (Lambda x ty t, []) = Right (Lambda x ty t, [])
