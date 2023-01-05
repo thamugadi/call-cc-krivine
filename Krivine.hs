@@ -5,7 +5,7 @@ import Typecheck
 krivine1 :: (Term, [Term]) -> Either String (Term, [Term])
 krivine1 a
   | not $ typecheck a = Left "Type Error" --Typechecking to be implemented.
-krivine1 (Var x, []) = Right (Var x, [])
+krivine1 (Var x, t) = Right (Var x, t)
 krivine1 (Lambda x ty t, []) = Right (Lambda x ty t, [])
 krivine1 (Lambda x ty t, (s:stack)) = Right (beta x s t, stack)
 krivine1 (Apply CC f, stack) = Right (f, (Cont stack):stack)
