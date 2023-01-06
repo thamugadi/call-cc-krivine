@@ -20,21 +20,6 @@ lexeme = L.lexeme sc
 symbol :: String -> Parser String
 symbol = L.symbol sc
 
-parseBase :: Parser Type
-parseBase = lexeme $ do
-  t <- some alphaNumChar
-  return $ Base t
-
-parseApp :: Parser Type
-parseApp = do
-  t1 <- parseBase 
-  _  <- symbol "->" <|> symbol "→"
-  t2 <- parseType 
-  return $ App t1 t2
-
-parseType :: Parser Type
-parseType = try parseApp <|> parseBase
-
 parseCC :: Parser Term
 parseCC = lexeme $ do
   t <- symbol "call/cc"
@@ -49,11 +34,9 @@ parseLambda :: Parser Term
 parseLambda = lexeme $ do
   _ <- symbol "λ" <|> symbol "lambda"
   x <- parseVar
-  _ <- symbol ":"
-  t <- parseType
   _ <- symbol "."
   e <- parseTerm
-  return $ Lambda x t e
+  return $ Lambda x e
 
 parseApply2 :: Parser Term
 parseApply2 = lexeme $ do

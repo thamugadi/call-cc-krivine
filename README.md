@@ -1,25 +1,23 @@
-# stlc-call-cc-krivine
+# call-cc-krivine
 
-**Work in progress. TODO: Implementing type checking.**
+**Work in progress.**
   
-A Krivine machine for the reduction of simply typed lambda calculus (with call/cc) expressions in Haskell.  
+A Krivine machine for the reduction of lambda calculus (with call/cc) expressions in Haskell.  
   
 Usage: (note: only use parentheses to apply a term to a term.)  
 ```hs  
-runghc Main.hs "(call/cc lambda x:a->b->a.(x 10))"  
+runghc Main.hs "(call/cc lambda x.(x 10))"  
 ```  
 Output example:  
 ```  
-(call/cc (λx:(a→(b→a)).(x 10))) *** []  
-(λx:(a→(b→a)).(x 10)) *** [continuation []]  
-10 *** []  
+(call/cc (λx.(x 10))) *** []
+(λx.(x 10)) *** [continuation []]
+10 *** []
 ```  
   
 [In his paper](https://www.irif.fr/~krivine/articles/lazymach.pdf), Jean-Louis Krivine describes his machine for the reduction of lambda calculus expressions into head normal form using call-by-name reduction
   
 The last chapter is about the addition of a call/cc instruction (call-with-current-continuation).  
-  
-By implementing a control instruction and a simple type system, we have equivalence with classical propositional logic (Curry-Howard correspondence).  
   
 This program is based on a [compact representation of the Krivine machine](https://hal.inria.fr/hal-01479035/document) to which I added the transition for continuation.  
     
