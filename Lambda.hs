@@ -11,6 +11,19 @@ data Term where
   CC     :: Term
   Cont   :: [Term] -> Term deriving (Eq, Show)
 
+token :: Int -> Int -> String
+token i j = "bound" ++ show i ++ "," ++ show j
+
+alpha_ :: Term -> Int -> Int -> Term
+alpha_ (Lambda x ty t) i j = Lambda (Var $ token i j) ty (alpha_ t (i+1) j)
+alpha_ (Apply (Lambda x ty t) (Var y)) i j =
+  Apply (Lambda (Var $ token i j) ty (alpha_ t (i+1) j)) (Var y)
+alpha_ (Apply a b) i j = Apply (alpha_ a (i+1) j) (alpha_ b i (j+1))
+alpha_ (Var v) _ _ = Var v
+
+alpha :: Term -> Term
+alpha t = alpha_ t 0 0
+
 beta :: Term -> Term -> Term -> Term 
 beta a b (Var t) 
   | (Var t) == a = b
