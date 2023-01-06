@@ -16,7 +16,6 @@ t2str (Cont c) = "continuation " ++ show c
 showKrivine :: Either String [(Term, [Term])] -> String
 showKrivine (Left s) = s++"\n"
 showKrivine (Right []) = ""
-showKrivine (Right ([(t,s)])) = ""
 showKrivine (Right ((t,s):kr)) =
   (t2str t)++" *** "++
   "["++
