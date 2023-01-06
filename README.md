@@ -30,6 +30,6 @@ To implement ``call/cc``, we allow ourselves to have a term that carries a stack
 *Before*                        |*After*|  
 |-                              |-  
 |``t s ⋆ π``                    | ``t ⋆ s :: π`` 
-|``λx:τ.t ⋆ s :: π``            | ``t[x := s] ⋆ π``   
+|``λx.t ⋆ s :: π``            | ``t[x := s] ⋆ π``   
 |``call/cc f ⋆ π``              |``f ⋆ continuation π :: π``
 | ``continuation π₁ ⋆ s :: π₂`` | ``s ⋆ π₁``
