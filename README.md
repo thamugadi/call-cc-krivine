@@ -26,10 +26,10 @@ This program is based on a [compact representation of the Krivine machine](https
 To implement ``call/cc``, we allow ourselves to have a term that carries a stack in the form ``continuation π``.  
 
 
+*Before* |*After*| Haskell | 
+|- |-  | -
+|``t s ⋆ π`` | ``t ⋆ s :: π``  | ``krivine1 (Apply a b, stack)  =  Right  (a, b:stack)``
+|``λx.t ⋆ s :: π`` | ``t[x := s] ⋆ π`` | ``krivine1 (Lambda x t,  (s:stack))  =  Right  (beta x s t, stack)``  
+|``call/cc f ⋆ π`` |``f ⋆ continuation π :: π``  | ``krivine1 (Apply  CC f, stack)  =  Right  (f,  (Cont stack):stack)``
+| ``continuation π₁ ⋆ s :: π₂`` | ``s ⋆ π₁`` | ``krivine1 (Cont stack1, s:_)  =  Right  (s, stack1)``
 
-*Before*                        |*After*|  
-|-                              |-  
-|``t s ⋆ π``                    | ``t ⋆ s :: π`` 
-|``λx.t ⋆ s :: π``            | ``t[x := s] ⋆ π``   
-|``call/cc f ⋆ π``              |``f ⋆ continuation π :: π``
-| ``continuation π₁ ⋆ s :: π₂`` | ``s ⋆ π₁``
