@@ -28,8 +28,8 @@ To implement ``call/cc``, we allow ourselves to have a term that carries a stack
 
 *Before* |*After*| Haskell | 
 |- |-  | -
-|``t s ⋆ π`` | ``t ⋆ s :: π``  | ``krivine1 (Apply a b, stack)  =  Right  (a, b:stack)``
-|``λx.t ⋆ s :: π`` | ``t[x := s] ⋆ π`` | ``krivine1 (Lambda x t,  (s:stack))  =  Right  (beta x s t, stack)``  
-|``call/cc f ⋆ π`` |``f ⋆ continuation π :: π``  | ``krivine1 (Apply  CC f, stack)  =  Right  (f,  (Cont stack):stack)``
-| ``continuation π₁ ⋆ s :: π₂`` | ``s ⋆ π₁`` | ``krivine1 (Cont stack1, s:_)  =  Right  (s, stack1)``
+|``t s ⋆ π`` | ``t ⋆ s :: π`` | ``k (Apply a b, stack)  =  Right (a, b:stack)``
+|``λx.t ⋆ s :: π`` | ``t[x := s] ⋆ π`` | ``k (Lambda x t, (s:stack)) = Right (beta x s t, stack)``  
+|``call/cc f ⋆ π`` |``f ⋆ continuation π :: π`` | ``k (Apply CC f, stack) = Right (f, (Cont stack):stack)``
+| ``continuation π₁ ⋆ s :: π₂`` | ``s ⋆ π₁`` | ``k (Cont stack1, s:_) = Right (s, stack1)``
 
