@@ -9,7 +9,7 @@ krivine1 (Lambda x t, []) = Right (Lambda x t, [])
 krivine1 (Lambda x t, (s:stack)) = Right (beta x s t, stack)
 
 krivine1 (Apply CC f, stack) = Right (f, (Cont stack):stack)
-krivine1 (Cont stack1, s:stack2) = Right (s, stack1)
+krivine1 (Cont stack1, s:_) = Right (s, stack1)
 
 krivine1 (Apply a b, stack) = Right (a, b:stack)
 
