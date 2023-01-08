@@ -6,12 +6,12 @@ A Krivine machine for the reduction of lambda calculus (with call/cc) expression
   
 Usage: (note: only use parentheses to apply a term to a term.)  
 ```hs  
-runghc Main.hs "(call/cc lambda x.(x 10))"  
+runghc Main.hs "(call/cc \f.(f 10))"  
 ```  
 Output example:  
 ```  
-(call/cc (λx.(x 10))) *** []
-(λx.(x 10)) *** [continuation []]
+(call/cc (λf.(f 10))) *** []
+(λf.(f 10)) *** [continuation []]
 10 *** []
 ```  
   
