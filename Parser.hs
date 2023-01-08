@@ -32,7 +32,7 @@ parseVar = lexeme $ do
 
 parseLambda :: Parser Term
 parseLambda = lexeme $ do
-  _ <- symbol "λ" <|> symbol "lambda"
+  _ <- symbol "λ" <|> symbol "lambda" <|> symbol "\\"
   x <- parseVar
   _ <- symbol "."
   e <- parseTerm
