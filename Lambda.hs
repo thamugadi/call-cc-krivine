@@ -14,3 +14,4 @@ beta a b (Var t)
   | otherwise = Var t
 beta a b (Lambda x t) = Lambda x $ beta a b t
 beta a b (Apply t u) = Apply (beta a b t) (beta a b u)
+beta a b c = b
