@@ -3,7 +3,6 @@ import System.Environment
 import Show
 import Parser
 import Krivine
-import Lambda
 exec s = krivine (runParser parseTerm "" s)
 
 main :: IO ()
