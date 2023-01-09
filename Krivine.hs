@@ -1,6 +1,5 @@
 module Krivine where
 import Lambda
---Typechecking to be implemented.
 
 krivine1 :: (Term, [Term]) -> Either String (Term, [Term])
 
