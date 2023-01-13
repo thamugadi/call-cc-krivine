@@ -6,11 +6,11 @@
 
 A Krivine machine for the call-by-name reduction of lambda calculus (with call/cc) expressions in Haskell.  
   
-Usage: (note: only use parentheses to apply a term to a term.)  
+Examples: (note: only use parentheses to apply a term to a term.)  
+
 ```hs  
 runghc Main.hs "(call/cc \f.(f 10))"  
 ```  
-Output example:  
 ```  
 (call/cc λf.(f 10)) *** []
 λf.(f 10) *** [continuation []]
