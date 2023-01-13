@@ -6,7 +6,9 @@ import Krivine
 import Lambda
 
 exec :: String -> Either String [(Term, [Term])]
-exec s = krivine (runParser parseTerm "" s)
+exec s
+  | elem ';' s = Left "Don't use semicolons"
+  | otherwise = krivine (runParser parseTerm "" s)
 
 main :: IO ()
 main = do
