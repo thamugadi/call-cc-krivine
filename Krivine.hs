@@ -11,15 +11,15 @@ krivine1 (App a b, stack) = Right (a, b:stack)
 
 krivine1 a = Right a
 
-krivine_ :: (Term, [Term]) -> [Either String (Term, [Term])]
-krivine_ a
+krivine2 :: (Term, [Term]) -> [Either String (Term, [Term])]
+krivine2 a
   | (krivine1 a) == Right a = pure $ Right a
-  | otherwise = krivine1 a : [(krivine1 a) >>= (\x -> last $ krivine_ x)]
+  | otherwise = krivine1 a : [(krivine1 a) >>= (\x -> last $ krivine2 x)]
 
-krivine__ :: Term -> Either String [(Term, [Term])]
-krivine__ a = sequence $ (Right (alphaeq, [])) : krivine_ (alphaeq, [])
+krivine3 :: Term -> Either String [(Term, [Term])]
+krivine3 a = sequence $ (Right (alphaeq, [])) : krivine2 (alphaeq, [])
   where alphaeq = alpha a
 
 krivine :: Either a Term -> Either String [(Term, [Term])]
 krivine (Left _) = Left "Parsing Error"
-krivine (Right k) = krivine__ k
+krivine (Right k) = krivine3 k

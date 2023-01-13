@@ -2,16 +2,16 @@ module Show where
 import Lambda
 import Data.List (intercalate)
 
-rnas_ :: String -> Bool -> String
-rnas_ [] _ = []
-rnas_ (';':s) _ = rnas_ s True
-rnas_ (' ':s) _ = ' ' : (rnas_ s False)
-rnas_ (a:s) b
-  | elem a ['0'..'9'] && b = rnas_ s b
-  | otherwise = a : (rnas_ s b)
+rnas1 :: String -> Bool -> String
+rnas1 [] _ = []
+rnas1 (';':s) _ = rnas1 s True
+rnas1 (' ':s) _ = ' ' : (rnas1 s False)
+rnas1 (a:s) b
+  | elem a ['0'..'9'] && b = rnas1 s b
+  | otherwise = a : (rnas1 s b)
 
 rnas :: String -> String
-rnas s = rnas_ s False
+rnas s = rnas1 s False
 
 t2str :: Term -> String
 t2str (Var a) = a
