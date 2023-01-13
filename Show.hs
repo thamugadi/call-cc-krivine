@@ -23,7 +23,7 @@ t2str (Cont c) = "continuation " ++ show c
 showKrivine :: Either String [(Term, [Term])] -> String
 showKrivine (Left s) = s++"\n"
 showKrivine (Right []) = ""
-showKrivine (Right [(t@(Var x), s@([a]))]) =
+showKrivine (Right [(t@(Var x), s@(a:as))]) =
   (t2str t)++" *** "++
   "["++
   intercalate ", " (map t2str s)++"]"++ " not evaluated!\n"
