@@ -1,7 +1,6 @@
 # call-cc-krivine
 
 **Work in progress.**
-TODO: α-equivalence
 
 A Krivine machine for the reduction of lambda calculus (with call/cc) expressions in Haskell.  
   
