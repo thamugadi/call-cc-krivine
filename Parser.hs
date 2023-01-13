@@ -38,39 +38,13 @@ parseLambda = lexeme $ do
   e <- parseTerm
   return $ Lambda x e
 
-parseApply2 :: Parser Term
-parseApply2 = lexeme $ do
-  _ <- symbol "("
-  a <- parseApply
-  b <- parseTerm
-  _ <- symbol ")"
-  return $ App a b
-
-parseApplyL :: Parser Term
-parseApplyL = lexeme $ do
-  _ <- symbol "("
-  a <- parseLambda
-  b <- parseTerm 
-  _ <- symbol ")"
-  return $ App a b
-
-parseApplyC :: Parser Term
-parseApplyC = lexeme $ do
-  _ <- symbol "("
-  a <- parseCC
-  b <- parseTerm
-  _ <- symbol ")"
-  return $ App a b
-
-parseApplyV :: Parser Term
-parseApplyV = lexeme $ do
-  _ <- symbol "("
-  a <- parseVar
-  b <- parseTerm
-  _ <- symbol ")"
-  return $ App a b
-
 parseApply :: Parser Term
-parseApply = try parseApply2 <|> try parseApplyL <|> try parseApplyC <|> parseApplyV
+parseApply = lexeme $ do
+  _ <- symbol "("
+  a <- try parseApply <|> try parseLambda <|> try parseCC <|> parseVar
+  b <- parseTerm
+  _ <- symbol ")"
+  return $ App a b
+
 parseTerm :: Parser Term
 parseTerm = try parseApply <|> try parseLambda <|> try parseVar
