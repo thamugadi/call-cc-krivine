@@ -19,10 +19,14 @@ alpha1 _ _ a = a
 alpha :: Term -> Term
 alpha = alpha1 0 []
 
-beta :: Term -> Term -> Term -> Term 
-beta a b (Var t) 
+beta1 :: Term -> Term -> Term -> Term 
+beta1 a b (Var t) 
   | (Var t) == a = b
   | otherwise = Var t
-beta a b (Lambda x t) = Lambda x $ beta a b t
-beta a b (App t u) = App (beta a b t) (beta a b u)
-beta _ b _ = b
+beta1 a b (Lambda x t) = Lambda x $ beta1 a b t
+beta1 a b (App t u) = App (beta1 a b t) (beta1 a b u)
+beta1 _ b _ = b
+
+beta :: Term -> Term -> Term
+beta (Lambda x t) s = beta1 x s t
+beta a _ = a
