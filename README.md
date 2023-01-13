@@ -19,7 +19,6 @@ Output example:
 
 ```
 runghc Main.hs "(\f. (\x. (f (x x)) \x. (f (x x))) g)"
-
 ```
 
 ```
