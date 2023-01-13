@@ -17,7 +17,8 @@ krivine_ a
   | otherwise = krivine1 a : [(krivine1 a) >>= (\x -> last $ krivine_ x)]
 
 krivine__ :: Term -> Either String [(Term, [Term])]
-krivine__ a = sequence $ (Right (a, [])) : krivine_ (a, [])
+krivine__ a = sequence $ (Right (alphaeq, [])) : krivine_ (alphaeq, [])
+  where alphaeq = alpha a
 
 krivine :: Either a Term -> Either String [(Term, [Term])]
 krivine (Left _) = Left "Parsing Error"
