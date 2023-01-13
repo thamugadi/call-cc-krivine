@@ -24,9 +24,9 @@ showKrivine :: Either String [(Term, [Term])] -> String
 showKrivine (Left s) = s++"\n"
 showKrivine (Right []) = ""
 showKrivine (Right [(t@(Var x), s@([a]))]) =
-    (t2str t)++" *** "++
-    "["++
-    intercalate ", " (map t2str s)++"]"++ " not evaluated!\n"
+  (t2str t)++" *** "++
+  "["++
+  intercalate ", " (map t2str s)++"]"++ " not evaluated!\n"
 showKrivine (Right ((t,s):kr)) =
   (t2str t)++" *** "++
   "["++
