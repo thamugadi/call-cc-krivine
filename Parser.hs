@@ -44,7 +44,7 @@ parseApply2 = lexeme $ do
   a <- parseApply
   b <- parseTerm
   _ <- symbol ")"
-  return $ Apply a b
+  return $ App a b
 
 parseApplyL :: Parser Term
 parseApplyL = lexeme $ do
@@ -52,7 +52,7 @@ parseApplyL = lexeme $ do
   a <- parseLambda
   b <- parseTerm 
   _ <- symbol ")"
-  return $ Apply a b
+  return $ App a b
 
 parseApplyC :: Parser Term
 parseApplyC = lexeme $ do
@@ -60,7 +60,7 @@ parseApplyC = lexeme $ do
   a <- parseCC
   b <- parseTerm
   _ <- symbol ")"
-  return $ Apply a b
+  return $ App a b
 
 parseApplyV :: Parser Term
 parseApplyV = lexeme $ do
@@ -68,7 +68,7 @@ parseApplyV = lexeme $ do
   a <- parseVar
   b <- parseTerm
   _ <- symbol ")"
-  return $ Apply a b
+  return $ App a b
 
 parseApply :: Parser Term
 parseApply = try parseApply2 <|> try parseApplyL <|> try parseApplyC <|> parseApplyV
