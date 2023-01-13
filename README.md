@@ -16,7 +16,18 @@ Output example:
 λf.(f 10) *** [continuation []]
 10 *** []
 ```  
-  
+
+```
+runghc Main.hs "(\f. (\x. (f (x x)) \x. (f (x x))) g)"
+
+```
+
+```
+(λf.(λx.(f (x x)) λx.(f (x x))) g) *** []
+λf.(λx.(f (x x)) λx.(f (x x))) *** [g]
+g *** [(λx.(g (x x)) λx.(g (x x)))] not evaluated!
+```
+
 [In his paper](https://www.irif.fr/~krivine/articles/lazymach.pdf), Jean-Louis Krivine describes his machine for the reduction of lambda calculus expressions into head normal form using call-by-name reduction
   
 The last chapter is about the addition of a call/cc instruction (call-with-current-continuation).  
