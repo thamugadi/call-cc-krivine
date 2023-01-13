@@ -2,7 +2,7 @@
 
 **Work in progress.**
 
-TODO: Better parser.
+**TODO: Better parser.**
 
 A Krivine machine for the reduction of lambda calculus (with call/cc) expressions in Haskell.  
   
