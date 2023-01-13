@@ -28,7 +28,7 @@ This program is based on a [compact representation of the Krivine machine](https
 To implement ``call/cc``, we allow ourselves to have a term that carries a stack in the form ``continuation π``.  
 
 
-*Before* |*After*| Haskell | 
+*Before* |*After*| 
 |- |-  | -
 |``t s ⋆ π`` | ``t ⋆ s : π`` | 
 |``λx.t ⋆ s : π`` | ``t[x := s] ⋆ π`` | 
