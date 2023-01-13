@@ -2,6 +2,8 @@
 
 **Work in progress.**
 
+TODO: Better parser.
+
 A Krivine machine for the reduction of lambda calculus (with call/cc) expressions in Haskell.  
   
 Usage: (note: only use parentheses to apply a term to a term.)  
