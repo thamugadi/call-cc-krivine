@@ -3,11 +3,11 @@ import Lambda
 
 krivine1 :: (Term, [Term]) -> Either String (Term, [Term])
 
-krivine1 (Apply CC f, stack) = Right (f, (Cont stack):stack)
+krivine1 (App CC f, stack) = Right (f, (Cont stack):stack)
 krivine1 (Cont stack1, s:_) = Right (s, stack1)
 
 krivine1 (Lambda x t, (s:stack)) = Right (beta x s t, stack)
-krivine1 (Apply a b, stack) = Right (a, b:stack)
+krivine1 (App a b, stack) = Right (a, b:stack)
 
 krivine1 a = Right a
 

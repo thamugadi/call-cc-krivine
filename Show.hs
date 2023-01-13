@@ -16,7 +16,7 @@ rnas s = rnas_ s False
 t2str :: Term -> String
 t2str (Var a) = a
 t2str (Lambda x e) = "λ"++(t2str x)++"."++(t2str e)
-t2str (Apply a b) = "("++(t2str a)++" "++(t2str b)++")"
+t2str (App a b) = "("++(t2str a)++" "++(t2str b)++")"
 t2str (CC) = "call/cc"
 t2str (Cont c) = "continuation " ++ show c
 

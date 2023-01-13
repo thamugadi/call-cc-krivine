@@ -11,4 +11,4 @@ exec s = krivine (runParser parseTerm "" s)
 main :: IO ()
 main = do
   args <- getArgs
-  putStr $ showKrivine $ exec $ head $ args
+  putStr $ rnas $ showKrivine $ exec $ head $ args
