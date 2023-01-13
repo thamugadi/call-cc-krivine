@@ -4,6 +4,7 @@ import Show
 import Parser
 import Krivine
 import Lambda
+import Data.Maybe (listToMaybe)
 
 exec :: String -> Either String [(Term, [Term])]
 exec s
@@ -13,4 +14,6 @@ exec s
 main :: IO ()
 main = do
   args <- getArgs
-  putStr $ rnas $ showKrivine $ exec $ head $ args
+  case listToMaybe args of
+    Nothing -> putStrLn "Usage: runghc Main.hs \"<expression>\""
+    Just a -> putStr $ rnas $ showKrivine $ exec a
