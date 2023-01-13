@@ -23,7 +23,7 @@ The last chapter is about the addition of a call/cc instruction (call-with-curre
   
 This program is based on a [compact representation of the Krivine machine](https://hal.inria.fr/hal-01479035/document) to which I added the transition for continuation.  
     
-``t ⋆ π`` describes a state, where ``t`` is a term and ``π`` is a stack of terms. Pushing ``u`` on  ``π`` is written ``u :: π``.  
+``t ⋆ π`` describes a state, where ``t`` is a term and ``π`` is a stack of terms. Pushing ``u`` on  ``π`` is written ``u : π``.  
   
 To implement ``call/cc``, we allow ourselves to have a term that carries a stack in the form ``continuation π``.  
 
