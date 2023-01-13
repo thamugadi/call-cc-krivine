@@ -12,8 +12,8 @@ runghc Main.hs "(call/cc \f.(f 10))"
 ```  
 Output example:  
 ```  
-(call/cc (λf.(f 10))) *** []
-(λf.(f 10)) *** [continuation []]
+(call/cc λf.(f 10)) *** []
+λf.(f 10) *** [continuation []]
 10 *** []
 ```  
   
