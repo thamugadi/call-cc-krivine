@@ -14,6 +14,10 @@ runghc Main.hs "(call/cc \x. (x (4 (22 3))))"
 ```  
 (call/cc λx.(x (4 (22 3)))) *** []
 λx.(x (4 (22 3))) *** [continuation []]
+(continuation [] (4 (22 3))) *** []
+continuation [] *** [(4 (22 3))]
+(4 (22 3)) *** []
+4 *** [(22 3)]
 4 *** [(22 3)]
 (4 (22 3)) not evaluated.
 ```  
@@ -25,6 +29,10 @@ runghc Main.hs "(\f. (\x. (f (x x)) \x. (f (x x))) g)"
 ```
 (λf.(λx.(f (x x)) λx.(f (x x))) g) *** []
 λf.(λx.(f (x x)) λx.(f (x x))) *** [g]
+(λx.(g (x x)) λx.(g (x x))) *** []
+λx.(g (x x)) *** [λx.(g (x x))]
+(g (λx.(g (x x)) λx.(g (x x)))) *** []
+g *** [(λx.(g (x x)) λx.(g (x x)))]
 g *** [(λx.(g (x x)) λx.(g (x x)))]
 (g (λx.(g (x x)) λx.(g (x x)))) not evaluated.
 ```
