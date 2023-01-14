@@ -21,7 +21,6 @@ x *** [y]
 x *** [y]
 (x y) not evaluated.
 ```  
-```  
 
 ```
 runghc Main.hs "(\f. (\x. (f (x x)) \x. (f (x x))) g)"
