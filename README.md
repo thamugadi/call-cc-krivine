@@ -9,12 +9,13 @@ A Krivine machine for the call-by-name reduction of lambda calculus (with call/c
 Examples: (note: only use parentheses to apply a term to a term.)  
 
 ```hs  
-runghc Main.hs "(call/cc \f.(f 10))"  
+runghc Main.hs "(call/cc \x. (x (4 (22 3))))" 
 ```  
 ```  
-(call/cc λf.(f 10)) *** []
-λf.(f 10) *** [continuation []]
-10 *** []
+(call/cc λx.(x (4 (22 3)))) *** []
+λx.(x (4 (22 3))) *** [continuation []]
+4 *** [(22 3)]
+(4 (22 3)) not evaluated.
 ```  
 
 ```
