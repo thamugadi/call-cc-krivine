@@ -10,6 +10,7 @@ Examples: (note: only use parentheses to apply a term to a term.)
 
 ```hs  
 runghc Main.hs "((call/cc \a.(a x)) y)"
+```
 ```  
 ((call/cc λa.(a x)) y) *** []
 (call/cc λa.(a x)) *** [y]
