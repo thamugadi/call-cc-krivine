@@ -20,15 +20,14 @@ t2str (App a b) = "("++(t2str a)++" "++(t2str b)++")"
 t2str (CC) = "call/cc"
 t2str (Cont c) = "continuation " ++ show c
 
+s2str :: [Term] -> String -> String
+s2str s i = intercalate i (map t2str s)
+
 showKrivine :: Either String [(Term, [Term])] -> String
 showKrivine (Left s) = s++"\n"
 showKrivine (Right []) = ""
 showKrivine (Right [(t@(Var x), s@(a:as))]) =
-  (t2str t)++" *** "++
-  "["++
-  intercalate ", " (map t2str s)++"]"++ " not evaluated!\n"
+  (t2str t)++" *** "++ "[" ++ (s2str s ", ")++"]\n" ++
+  "("++(t2str t)++" "++(s2str s " ")++")" ++ " not evaluated.\n"
 showKrivine (Right ((t,s):kr)) =
-  (t2str t)++" *** "++
-  "["++
-  intercalate ", " (map t2str s)++"]\n"++
-  (showKrivine (Right kr))
+  (t2str t)++" *** " ++ "["++ (s2str s ", ")++"]\n" ++ (showKrivine (Right kr))
