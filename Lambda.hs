@@ -10,10 +10,10 @@ data Term where
   Cont   :: [Term] -> Term deriving (Eq, Show)
 
 alpha1 :: Int -> [(String, Int)] -> Term -> Term
-alpha1 n bound (Var t)
-  | p /= Nothing = Var $ t ++ ";" ++ (show $ snd $ (\(Just a) -> a) p)
-  | otherwise    = Var t 
-      where p = (find (\(s,i) -> s == t) bound)
+
+alpha1 n bound term@(Var name) =
+  maybe term (\x -> Var $ name ++ ";" ++ (show $ snd $ x)) p 
+    where p = (find (\(s,i) -> s == name) bound)
 
 alpha1 n bound (Lambda (Var x) t) = Lambda (Var $ x++";"++(show n)) (alpha1 (n+1) ((x,n):bound) t)
 alpha1 n bound (App a b)          = App (alpha1 n bound a) (alpha1 n bound b)
