@@ -18,7 +18,6 @@ runghc Main.hs "((call/cc \a.(a x)) y)"
 (continuation [Var "y"] x) *** [y]
 continuation [Var "y"] *** [x, y]
 x *** [y]
-x *** [y]
 (x y) not evaluated.
 ```  
 
@@ -32,7 +31,6 @@ runghc Main.hs "(\f. (\x. (f (x x)) \x. (f (x x))) g)"
 (λx.(g (x x)) λx.(g (x x))) *** []
 λx.(g (x x)) *** [λx.(g (x x))]
 (g (λx.(g (x x)) λx.(g (x x)))) *** []
-g *** [(λx.(g (x x)) λx.(g (x x)))]
 g *** [(λx.(g (x x)) λx.(g (x x)))]
 (g (λx.(g (x x)) λx.(g (x x)))) not evaluated.
 ```
