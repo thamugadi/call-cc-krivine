@@ -13,7 +13,7 @@ krivine1 a = a
 
 krivine2 :: (Term, [Term]) -> [(Term, [Term])]
 krivine2 a
-   | eval == a = [a]
+   | eval == a = []
    | otherwise = eval : krivine2 eval 
        where eval = krivine1 a
 
