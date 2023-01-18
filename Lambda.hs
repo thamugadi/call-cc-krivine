@@ -1,6 +1,7 @@
 {-# LANGUAGE GADTs #-}
 module Lambda where
 import Data.List (find)
+
 data Term where
   Var    :: String -> Term
   Lambda :: Term -> Term -> Term
@@ -11,7 +12,9 @@ data Term where
 alpha1 :: Int -> [(String, Int)] -> Term -> Term
 alpha1 n bound (Var t)
   | p /= Nothing = Var $ t ++ ";" ++ (show $ snd $ (\(Just a) -> a) p)
-  | otherwise    = Var t where p = (find (\(s,i) -> s == t) bound)
+  | otherwise    = Var t 
+      where p = (find (\(s,i) -> s == t) bound)
+
 alpha1 n bound (Lambda (Var x) t) = Lambda (Var $ x++";"++(show n)) (alpha1 (n+1) ((x,n):bound) t)
 alpha1 n bound (App a b)          = App (alpha1 n bound a) (alpha1 n bound b)
 alpha1 _ _ a                      = a
