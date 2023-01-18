@@ -6,6 +6,7 @@ rnas1 :: String -> Bool -> String
 rnas1 [] _      = []
 rnas1 (';':s) _ = rnas1 s True
 rnas1 (' ':s) _ = ' ' : (rnas1 s False)
+rnas1 ('.':s) _ = '.' : (rnas1 s False)
 rnas1 (a:s) b
   | elem a ['0'..'9'] && b = rnas1 s b
   | otherwise              = a : (rnas1 s b)
