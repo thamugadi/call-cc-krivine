@@ -13,7 +13,7 @@ alpha1 :: Int -> [(String, Int)] -> Term -> Term
 
 alpha1 n bound term@(Var name) =
   maybe term (\x -> Var $ name ++ ";" ++ (show $ snd $ x)) p 
-    where p = (find (\(s,i) -> s == name) bound)
+    where p = find (\(s,i) -> s == name) bound
 
 alpha1 n bound (Lambda (Var x) t) = Lambda (Var $ x++";"++(show n)) (alpha1 (n+1) ((x,n):bound) t)
 alpha1 n bound (App a b)          = App (alpha1 n bound a) (alpha1 n bound b)
