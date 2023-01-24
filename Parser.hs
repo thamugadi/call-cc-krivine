@@ -46,10 +46,10 @@ parseLambda = lexeme $ do
 parseApply :: Parser Term
 parseApply = lexeme $ do
   _ <- symbol "("
-  a <- parseApply <|> parseLambda <|> parseCC <|> parseVar
+  a <- parseTerm
   b <- parseTerm
   _ <- symbol ")"
   return $ App a b
 
 parseTerm :: Parser Term
-parseTerm = parseApply <|> parseLambda <|> parseVar
+parseTerm = parseApply <|> parseLambda <|> parseCC <|> parseClock <|> parseVar

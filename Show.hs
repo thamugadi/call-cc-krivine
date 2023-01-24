@@ -22,6 +22,7 @@ t2str (CC)         = "call/cc"
 t2str (Cont c)     = "continuation " ++ show c
 t2str (Clock)      = "clock"
 t2str (Instr n)    = "instr n°" ++ show n
+
 s2str :: [Term] -> String -> String
 s2str s i = intercalate i (map t2str s)
 
