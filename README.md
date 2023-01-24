@@ -53,3 +53,4 @@ To implement ``call/cc``, we allow ourselves to have a term that carries a stack
 |``call/cc f ⋆ π`` |``f ⋆ continuation π : π`` 
 | ``continuation π₁ ⋆ s : π₂`` | ``s ⋆ π₁`` 
 
+[A similar transition table for SKI combinators is described in this paper from Krivine.](https://www.irif.fr/~krivine/articles/Lacombe.pdf) (p. 5)
