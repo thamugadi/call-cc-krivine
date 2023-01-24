@@ -16,7 +16,7 @@ This program is based on a [compact representation of the Krivine machine](https
   
 To implement ``call/cc``, we allow ourselves to have a term that carries a stack in the form ``continuation π``.  
 
-As for the ``clock`` instruction, it is an instruction [described in this paper](https://www.irif.fr/~krivine/articles/Lacombe.pdf) that gives the number of instructions executed since the boot. Krivine establishes that a typed version of it would imply the *Axiom of dependent choice*, just like how a typed *call/cc* would imply the excluded middle.
+As for the ``clock`` instruction, it is an instruction [described in this paper](https://www.irif.fr/~krivine/articles/Lacombe.pdf) that gives the number of instructions executed since the boot. Krivine establishes that a typed version of it would imply the *Axiom of dependent choice*, just like how a typed ``call/cc`` would imply the *excluded middle*.
 
 *Before* |*After*|
 |- |-  
