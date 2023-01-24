@@ -30,7 +30,7 @@ beta1 a b (Var t)
   | otherwise    = Var t
 beta1 a b (Lambda x t) = Lambda x $ beta1 a b t
 beta1 a b (App t u)    = App (beta1 a b t) (beta1 a b u)
-beta1 _ b _            = b
+beta1 a b t            = t
 
 beta :: Term -> Term -> Term
 beta (Lambda x t) s = beta1 x s t
