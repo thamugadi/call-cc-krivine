@@ -3,7 +3,6 @@ import Lambda
 
 krivine1 :: (Term, [Term], Integer) -> (Term, [Term], Integer)
 
---krivine1 (App CC f, stack, n)  = (f, (Cont stack):stack, n+1)
 krivine1 (CC, (f:stack), n) = (f, (Cont stack):stack, n+1)
 krivine1 (Cont stack1, s:_, n) = (s, stack1, n+1)
 
