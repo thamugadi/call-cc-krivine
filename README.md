@@ -4,7 +4,7 @@
 
 **TODO: Better parser.**
 
-A Krivine machine for the call-by-name reduction of lambda calculus (with call/cc) expressions in Haskell.  
+A Krivine machine for the call-by-name reduction of lambda calculus (with call/cc & clock) expressions in Haskell.  
   
 [In his paper](https://www.irif.fr/~krivine/articles/lazymach.pdf), Jean-Louis Krivine describes his machine for the reduction of lambda calculus expressions into head normal form using call-by-name reduction
   
