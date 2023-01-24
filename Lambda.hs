@@ -7,7 +7,9 @@ data Term where
   Lambda :: Term -> Term -> Term
   App    :: Term -> Term -> Term 
   CC     :: Term
-  Cont   :: [Term] -> Term deriving (Eq, Show)
+  Cont   :: [Term] -> Term 
+  Clock  :: Term
+  Instr  :: Integer -> Term deriving (Eq, Show)
 
 alpha1 :: Int -> [(String, Int)] -> Term -> Term
 
