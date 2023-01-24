@@ -25,6 +25,11 @@ parseCC = lexeme $ do
   t <- symbol "call/cc"
   return CC
 
+parseClock :: Parser Term
+parseClock = lexeme $ do
+  t <- symbol "clock"
+  return Clock
+
 parseVar :: Parser Term 
 parseVar = lexeme $ do
   t <- some alphaNumChar
