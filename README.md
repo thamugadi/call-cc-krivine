@@ -22,7 +22,7 @@ As for the ``clock`` instruction, it is an instruction [described in this paper]
 |- |-  
 |``t s ⋆ π`` | ``t ⋆ s : π`` 
 |``λx.t ⋆ s : π`` | ``t[x := s] ⋆ π`` 
-|``call/cc f ⋆ π`` |``f ⋆ continuation π : π`` 
+|``call/cc ⋆ f : π`` |``f ⋆ continuation π : π`` 
 | ``continuation π₁ ⋆ s : π₂`` | ``s ⋆ π₁`` 
 | ``clock ⋆ s : π`` | ``s ⋆ n : π``
 
