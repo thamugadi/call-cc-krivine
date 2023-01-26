@@ -27,7 +27,7 @@ parseClock :: Parser Term
 parseClock = lexeme $ symbol "clock" *> return Clock
 
 parseVar :: Parser Term
-parseVar = lexeme $ fmap Var $ some alphaNumChar
+parseVar = lexeme $ Var <$> some alphaNumChar
 
 parseLambda :: Parser Term
 parseLambda = lexeme $ lambda *> (Lambda <$> parseVar <* symbol "." <*> parseTerm) where
