@@ -30,20 +30,11 @@ parseVar :: Parser Term
 parseVar = lexeme $ fmap Var $ some alphaNumChar
 
 parseLambda :: Parser Term
-parseLambda = lexeme $ do
-  _ <- symbol "λ" <|> symbol "lambda" <|> symbol "\\"
-  x <- parseVar
-  _ <- symbol "."
-  e <- parseTerm
-  return $ Lambda x e
+parseLambda = lexeme $ lambda *> (Lambda <$> parseVar <* symbol "." <*> parseTerm) where
+  lambda = symbol "λ" <|> symbol "lambda" <|> symbol "\\"
 
 parseApply :: Parser Term
-parseApply = lexeme $ do
-  _ <- symbol "("
-  a <- parseTerm
-  b <- parseTerm
-  _ <- symbol ")"
-  return $ App a b
+parseApply = lexeme $ symbol "(" *> (App <$> parseTerm <*> parseTerm) <* symbol ")"
 
 parseTerm :: Parser Term
 parseTerm = parseApply <|> parseLambda <|> parseCC <|> parseClock <|> parseVar
