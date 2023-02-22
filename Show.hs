@@ -31,8 +31,7 @@ showKrivine (Left s)   = s++"\n"
 showKrivine (Right []) = ""
 
 showKrivine (Right [(t@(Var x), s@(a:as))]) =
-  (t2str t)++" *** "++ "[" ++ (s2str s ", ")++"]\n" ++
-  "("++(t2str t)++" "++(s2str s " ")++")" ++ " not evaluated.\n"
+  (t2str t)++" *** "++ "[" ++ (s2str s ", ")++"]\nnot evaluated.\n"
 
 showKrivine (Right ((t,s):kr)) =
   (t2str t)++" *** " ++ "["++ (s2str s ", ")++"]\n" ++ (showKrivine (Right kr))
