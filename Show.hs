@@ -19,7 +19,7 @@ t2str (Var a)      = a
 t2str (Lambda x e) = "λ"++(t2str x)++"."++(t2str e)
 t2str (App a b)    = "("++(t2str a)++" "++(t2str b)++")"
 t2str (CC)         = "call/cc"
-t2str (Cont c)     = "continuation " ++ show c
+t2str (Cont c)     = "continuation " ++ show (map t2str c)
 t2str (Clock)      = "clock"
 t2str (Instr n)    = "instr n°" ++ show n
 
