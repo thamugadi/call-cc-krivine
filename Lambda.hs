@@ -35,3 +35,9 @@ beta1 a b t            = t
 beta :: Term -> Term -> Term
 beta (Lambda x t) s = beta1 x s t
 beta a _            = a
+
+mulLambda :: [Term] -> Term -> Term 
+mulLambda args t = foldr Lambda t args
+
+mulApp :: [Term] -> Term
+mulApp = foldl1 App
