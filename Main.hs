@@ -1,4 +1,4 @@
-import Text.Megaparsec
+import Text.Megaparsec (runParser)
 import System.Environment
 import Show
 import Parser
@@ -6,7 +6,7 @@ import Krivine
 import Lambda
 import Data.Maybe (listToMaybe)
 
-exec :: String -> Either String [(Term, [Term], Integer)]
+exec :: String -> Either String [State]
 exec s
   | elem ';' s = Left "Don't use semicolons"
   | otherwise  = krivine (runParser parseTerm "" s)
