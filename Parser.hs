@@ -30,11 +30,11 @@ parseVar :: Parser Term
 parseVar = lexeme $ Var <$> some alphaNumChar
 
 parseLambda :: Parser Term
-parseLambda = lexeme $ lambda *> (Lambda <$> parseVar <* symbol "." <*> parseTerm) where
+parseLambda = lexeme $ lambda *> (mulLambda <$> some parseVar <* symbol ".") <*> parseTerm where
   lambda = symbol "λ" <|> symbol "lambda" <|> symbol "\\"
 
 parseApply :: Parser Term
-parseApply = lexeme $ symbol "(" *> (App <$> parseTerm <*> parseTerm) <* symbol ")"
+parseApply = lexeme $ symbol "(" *> (mulApp <$> (some parseTerm)) <* symbol ")"
 
 parseTerm :: Parser Term
 parseTerm = parseApply <|> parseLambda <|> parseCC <|> parseClock <|> parseVar
