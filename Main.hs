@@ -1,8 +1,8 @@
 import Text.Megaparsec (runParser)
-import System.Environment
-import Show
-import Parser
-import Krivine
+import System.Environment (getArgs)
+import Show (showKrivine, rnas)
+import Parser (parseTerm)
+import Krivine (krivine)
 import Lambda
 import Data.Maybe (listToMaybe)
 
