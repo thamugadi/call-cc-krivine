@@ -2,6 +2,9 @@
 module Lambda where
 import Data.List (find)
 
+type Stack = [Term]
+type State = (Term, Stack, Integer)
+
 data Term where
   Var    :: String -> Term
   Lambda :: Term -> Term -> Term

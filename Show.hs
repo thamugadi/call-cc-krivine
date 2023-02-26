@@ -26,12 +26,12 @@ t2str (Instr n)    = "instr n°" ++ show n
 s2str :: [Term] -> String -> String
 s2str s i = intercalate i (map t2str s)
 
-showKrivine :: Either String [(Term, [Term])] -> String
+showKrivine :: Either String [State] -> String
 showKrivine (Left s)   = s++"\n"
 showKrivine (Right []) = ""
 
-showKrivine (Right [(t@(Var x), s@(a:as))]) =
+showKrivine (Right [(t@(Var x), s@(a:as), n)]) =
   (t2str t)++" *** "++ "[" ++ (s2str s ", ")++"]\nnot evaluated.\n"
 
-showKrivine (Right ((t,s):kr)) =
+showKrivine (Right ((t,s,n):kr)) =
   (t2str t)++" *** " ++ "["++ (s2str s ", ")++"]\n" ++ (showKrivine (Right kr))
