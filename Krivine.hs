@@ -2,32 +2,38 @@ module Krivine where
 import Lambda
 import Text.Megaparsec (runParser)
 import Parser (parseTerm)
+import Data.List (find)
 
-krivine1 :: State -> State
+type Context = [(String, Term)]
+type KMachine = (State, Context)
 
-krivine1 (CC, (f:stack), n) = (f, (Cont stack):stack, n+1)
-krivine1 (Cont stack1, s:_, n) = (s, stack1, n+1)
-krivine1 (Clock, (s:stack), n) = (s, (Instr (n+1):stack), n+1)
-krivine1 (t@(Lambda _ _), (s:stack), n) = (beta t s, stack, n+1)
-krivine1 (App a b, stack, n)            = (a, b:stack, n+1)
+krivine1 :: KMachine -> KMachine
+krivine1 ((CC, (f:stack), n),c) = ((f, (Cont stack):stack, n+1),c)
+krivine1 ((Cont stack1, s:_, n),c) = ((s, stack1, n+1),c)
+krivine1 ((Clock, (s:stack), n),c) = ((s, (Instr (n+1):stack), n+1),c)
+krivine1 ((t@(Lambda _ _), (s:stack), n),c) = ((beta t s, stack, n+1),c)
+krivine1 ((App a b, stack, n),c)            = ((a, b:stack, n+1),c)
+
+krivine1 current@((t@(Var a), stack, n), context) = 
+  ((maybe t snd $ find ((==a) . fst) context, stack, n), context)
 
 krivine1 a = a
 
-krivine2 :: State -> [State]
+krivine2 :: KMachine -> [KMachine]
 krivine2 a
    | eval == a = []
    | otherwise = eval : krivine2 eval 
        where eval = krivine1 a
 
-krivine3 :: Term -> [State]
-krivine3 a = (alphaeq, [], 0) : (krivine2 (alphaeq, [], 0)) 
+krivine3 :: Term -> Context -> [KMachine]
+krivine3 a c = ((alphaeq, [], 0), c) : (krivine2 ((alphaeq, [], 0), c)) 
   where alphaeq = alpha a
 
-krivine :: Either a Term -> Either String [State]
-krivine (Left _)  = Left "Parsing Error" 
-krivine (Right k) = Right $ krivine3 k
+krivine :: Either a Term -> Context -> Either String [KMachine]
+krivine (Left _) _ = Left "Parsing Error" 
+krivine (Right k) initContext = Right $ krivine3 k initContext
 
-runKrivine :: String -> Either String [State]
-runKrivine s
+runKrivine :: String -> Context -> Either String [KMachine]
+runKrivine s initContext
   | elem ';' s = Left "Don't use semicolons"
-  | otherwise  = krivine (runParser parseTerm "" s)
+  | otherwise  = krivine (runParser parseTerm "" s) initContext
