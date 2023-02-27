@@ -1,6 +1,7 @@
 module Show where
 import Lambda
 import Data.List (intercalate)
+import Krivine
 
 removeTags1 :: String -> Bool -> String
 removeTags1 [] _      = []
@@ -26,16 +27,16 @@ t2str (Instr n)    = "instr n°" ++ show n
 s2str :: [Term] -> String -> String
 s2str s i = intercalate i (map t2str s)
 
-showKrivine1 :: Either String [State] -> String
+showKrivine1 :: Either String [KMachine] -> String
 showKrivine1 (Left s)   = s++"\n"
 showKrivine1 (Right []) = ""
 
-showKrivine1 (Right [(t@(Var x), s@(a:as), n)]) =
+showKrivine1 (Right [((t@(Var x), s@(a:as), n),c)]) =
   (t2str t)++" *** "++ "[" ++ (s2str s ", ")++"]\nnot evaluated.\n"
 
-showKrivine1 (Right ((t,s,n):kr)) =
+showKrivine1 (Right (((t,s,n),c):kr)) =
   (t2str t)++" *** " ++ "["++ (s2str s ", ")++"]\n" ++ (showKrivine1 (Right kr))
 
-showKrivine :: Either String [State] -> String
+showKrivine :: Either String [KMachine] -> String
 showKrivine s@(Left _) = showKrivine1 s
 showKrivine a = removeTags $ showKrivine1 a
