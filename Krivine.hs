@@ -1,5 +1,7 @@
 module Krivine where
 import Lambda
+import Text.Megaparsec (runParser)
+import Parser (parseTerm)
 
 krivine1 :: State -> State
 
@@ -24,5 +26,10 @@ krivine3 a = (alphaeq, [], 0) : (krivine2 (alphaeq, [], 0))
   where alphaeq = alpha a
 
 krivine :: Either a Term -> Either String [State]
-krivine (Left _)  = Left "Parsing Error"
+krivine (Left _)  = Left "Parsing Error" 
 krivine (Right k) = Right $ krivine3 k
+
+runKrivine :: String -> Either String [State]
+runKrivine s
+  | elem ';' s = Left "Don't use semicolons"
+  | otherwise  = krivine (runParser parseTerm "" s)
