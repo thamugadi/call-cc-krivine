@@ -21,10 +21,10 @@ symbol :: String -> Parser String
 symbol = L.symbol sc
 
 parseCC :: Parser Term
-parseCC = lexeme $ symbol "call/cc" *> return CC
+parseCC = lexeme $ CC <$ symbol "call/cc"
 
 parseClock :: Parser Term
-parseClock = lexeme $ symbol "clock" *> return Clock
+parseClock = lexeme $ Clock <$ symbol "clock"
 
 parseVar :: Parser Term
 parseVar = lexeme $ Var <$> some alphaNumChar
