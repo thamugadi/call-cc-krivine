@@ -24,9 +24,9 @@ krivine1 a = a
 
 krivine2 :: KMachine -> [KMachine]
 krivine2 a
-   | eval == a = []
-   | otherwise = eval : krivine2 eval 
-       where eval = krivine1 a
+  | eval == a = []
+  | otherwise = eval : krivine2 eval 
+      where eval = krivine1 a
 
 krivine3 :: Term -> Context -> [KMachine]
 krivine3 a c = ((alphaeq, [], 0), c) : (krivine2 ((alphaeq, [], 0), c)) 
@@ -40,3 +40,6 @@ runKrivine :: String -> Context -> Either String [KMachine]
 runKrivine s initContext
   | elem ';' s = Left "Don't use semicolons"
   | otherwise  = krivine (runParser parseTerm "" s) initContext
+
+runMKrivine :: String -> Context -> Either String [[KMachine]]
+runMKrivine = undefined
