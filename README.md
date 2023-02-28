@@ -28,7 +28,15 @@ As for the ``clock`` instruction, it is an instruction [described in this paper]
 [A similar transition table for SKI combinators is described in this paper from Krivine.](https://www.irif.fr/~krivine/articles/Lacombe.pdf) (p. 5)
 
 
-Examples: (note: only use parentheses to apply a term to a term.)
+Open the REPL with:
+
+```
+runghc Main.hs
+```
+
+Or pass the expression as following: ``runghc Main.hs "{expr}"``
+
+Examples: 
 
 ```  
 runghc Main.hs "((call/cc \a.(a x)) y)"
