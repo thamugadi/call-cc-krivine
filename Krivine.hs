@@ -8,9 +8,9 @@ type Context = [(String, Term)]
 type KMachine = (State, Context)
 
 krivine1 :: KMachine -> KMachine
-krivine1 ((CC, (f:stack), n),c) = ((f, (Cont stack):stack, n+1),c)
+krivine1 ((Var "call/cc", (f:stack), n),c) = ((f, (Cont stack):stack, n+1),c)
 krivine1 ((Cont stack1, s:_, n),c) = ((s, stack1, n+1),c)
-krivine1 ((Clock, (s:stack), n),c) = ((s, (Instr (n+1):stack), n+1),c)
+krivine1 ((Var "clock", (s:stack), n),c) = ((s, (Instr (n+1):stack), n+1),c)
 krivine1 ((t@(Lambda _ _), (s:stack), n),c) = ((beta t s, stack, n+1),c)
 krivine1 ((App a b, stack, n),c)            = ((a, b:stack, n+1),c)
 
