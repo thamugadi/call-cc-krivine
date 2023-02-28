@@ -1,3 +1,3 @@
-import REPL
+import Interpreter 
 
 main = repl [] 
