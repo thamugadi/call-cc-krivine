@@ -9,9 +9,7 @@ data Term where
   Var    :: String -> Term
   Lambda :: Term -> Term -> Term
   App    :: Term -> Term -> Term 
-  CC     :: Term
   Cont   :: Stack -> Term 
-  Clock  :: Term
   Instr  :: Integer -> Term deriving Eq
 
 alpha1 :: Int -> [(String, Int)] -> Term -> Term
