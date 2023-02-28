@@ -1,4 +1,4 @@
-module REPL where
+module Interpreter where
 
 import Krivine
 import Show
