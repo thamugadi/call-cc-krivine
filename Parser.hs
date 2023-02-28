@@ -31,4 +31,4 @@ parseApply :: Parser Term
 parseApply = lexeme $ symbol "(" *> (mulApp <$> (some parseTerm)) <* symbol ")"
 
 parseTerm :: Parser Term
-parseTerm = parseApply <|> parseLambda <|> parseVar
+parseTerm = (many $ char ' ') *> (parseApply <|> parseLambda <|> parseVar)
