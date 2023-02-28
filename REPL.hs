@@ -18,5 +18,5 @@ repl context = do
   let k = runKrivine x context
   putStr $ showKrivine k
   case k of
-    Left b  -> return () 
+    Left b  -> repl $ context
     Right a -> repl $ snd $ last a 
