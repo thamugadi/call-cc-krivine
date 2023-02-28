@@ -20,14 +20,8 @@ lexeme = L.lexeme sc
 symbol :: String -> Parser String
 symbol = L.symbol sc
 
-parseCC :: Parser Term
-parseCC = lexeme $ CC <$ symbol "call/cc"
-
-parseClock :: Parser Term
-parseClock = lexeme $ Clock <$ symbol "clock"
-
 parseVar :: Parser Term
-parseVar = lexeme $ Var <$> some alphaNumChar
+parseVar = lexeme $ Var <$> some (alphaNumChar <|> char '/')
 
 parseLambda :: Parser Term
 parseLambda = lexeme $ lambda *> (mulLambda <$> some parseVar <* symbol ".") <*> parseTerm where
@@ -37,4 +31,4 @@ parseApply :: Parser Term
 parseApply = lexeme $ symbol "(" *> (mulApp <$> (some parseTerm)) <* symbol ")"
 
 parseTerm :: Parser Term
-parseTerm = parseApply <|> parseLambda <|> parseCC <|> parseClock <|> parseVar
+parseTerm = parseApply <|> parseLambda <|> parseVar
