@@ -1,6 +1,7 @@
 # call-cc-krivine
 
 **Work in progress.**
+todo: update readme 
 
 A Krivine machine for the call-by-name reduction of lambda calculus (with call/cc & clock) expressions in Haskell.  
   
