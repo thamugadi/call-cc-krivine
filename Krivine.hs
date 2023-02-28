@@ -1,7 +1,5 @@
 module Krivine where
 import Lambda
-import Text.Megaparsec (runParser)
-import Parser (parseTerm)
 import Data.List (find)
 
 type Context = [(String, Term)]
@@ -36,8 +34,18 @@ krivine :: Either a Term -> Context -> Either String [KMachine]
 krivine (Left _) _ = Left "Parsing Error" 
 krivine (Right k) initContext = Right $ krivine3 k initContext
 
-runKrivine :: String -> Context -> Either String [KMachine]
-runKrivine s initContext = krivine (runParser parseTerm "" s) initContext
+--runKrivine :: String -> Context -> Either String [KMachine]
+--runKrivine s initContext = krivine (runParser parseTerm "" s) initContext
 
-runMKrivine :: String -> Context -> Either String [[KMachine]]
-runMKrivine = undefined
+--runMKrivine1 :: [String] -> Context -> [Either String [KMachine]]
+--runMKrivine1 [] _ = []
+--runMKrivine1 (x:xs) c =
+--  case runKrivine x c of
+--    Left a -> [Left a]
+--    Right machine -> (Right machine) : runMKrivine1 xs (snd $ last machine)
+
+--runMKrivine :: [String] -> Context -> Either String [KMachine]
+--runMKrivine s c = case (concat $ concat $ sequence $ runMKrivine1 s c) of
+--  [] -> Left "Parsing Error"
+--  xs -> Right xs
+
