@@ -37,9 +37,7 @@ krivine (Left _) _ = Left "Parsing Error"
 krivine (Right k) initContext = Right $ krivine3 k initContext
 
 runKrivine :: String -> Context -> Either String [KMachine]
-runKrivine s initContext
-  | elem ';' s = Left "Don't use semicolons"
-  | otherwise  = krivine (runParser parseTerm "" s) initContext
+runKrivine s initContext = krivine (runParser parseTerm "" s) initContext
 
 runMKrivine :: String -> Context -> Either String [[KMachine]]
 runMKrivine = undefined
