@@ -2,11 +2,8 @@ module Interpreter where
 
 import Krivine
 import Show
-import Data.Maybe (listToMaybe)
 import Text.Megaparsec (runParser)
 import Parser (parseTerm)
-
-import System.Environment (getArgs)
 
 runKrivine1 :: String -> Context -> Either String [KMachine]
 runKrivine1 s initContext = krivine (runParser parseTerm "" s) initContext
@@ -26,12 +23,8 @@ runMKrivine s c = case (concat $ concat $ sequence $ runMKrivine1 s c) of
 runKrivine :: String -> Context -> Either String [KMachine]
 runKrivine s initContext = runMKrivine (divide s) initContext
 
-cmd :: IO ()
-cmd = do  
-  args <- getArgs  
-  case listToMaybe args of  
-    Nothing -> putStrLn "Usage: runghc Main.hs \"<expression>\""  
-    Just a  -> putStr $ showKrivine $ runKrivine a []  
+cmd :: [String] -> IO ()
+cmd args = putStr $ showKrivine $ runKrivine (head args) []  
 
 repl :: Context -> IO ()
 repl context = do
