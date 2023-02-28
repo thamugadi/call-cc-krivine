@@ -15,6 +15,7 @@ krivine1 ((t@(Lambda _ _), (s:stack), n),c) = ((beta t s, stack, n+1),c)
 krivine1 ((App a b, stack, n),c)            = ((a, b:stack, n+1),c)
 
 krivine1 ((Var "define", (Var a:b:x:s), n), c) = ((x, s, n+1), (a, b):c)
+krivine1 ((v@(Var "define"), (Var a:b:[]), n), c) = ((v, [], n+1), (a, b):c)
 
 krivine1 ((t@(Var a), stack, n), context) = 
   ((maybe t snd $ find ((==a) . fst) context, stack, n), context)
