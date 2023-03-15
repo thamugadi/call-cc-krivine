@@ -27,8 +27,14 @@ parseLambda :: Parser Term
 parseLambda = lexeme $ lambda *> (mulLambda <$> some parseVar <* symbol ".") <*> parseTerm where
   lambda = symbol "λ" <|> symbol "lambda" <|> symbol "\\"
 
+parseParens :: Parser Term
+parseParens = between (symbol "(") (symbol ")") parseTerm
+
+parseAtom :: Parser Term
+parseAtom = parseVar <|> parseLambda <|> parseParens
+
 parseApply :: Parser Term
-parseApply = lexeme $ symbol "(" *> (mulApp <$> (some parseTerm)) <* symbol ")"
+parseApply = foldl1 App <$> some parseAtom
 
 parseTerm :: Parser Term
-parseTerm = (many $ char ' ') *> (parseApply <|> parseLambda <|> parseVar)
+parseTerm = (many $ char ' ') *> parseApply
