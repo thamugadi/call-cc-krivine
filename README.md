@@ -3,6 +3,8 @@
 **Work in progress.**
 todo: update readme 
 
+**A web version, compiled with the GHC 9.6 Javascript build, is available there: https://thamugadi.github.io/ **
+
 A Krivine machine for the call-by-name reduction of lambda calculus (with call/cc & clock) expressions in Haskell.  
   
 [In his paper](https://www.irif.fr/~krivine/articles/lazymach.pdf), Jean-Louis Krivine describes his machine for the reduction of lambda calculus expressions into head normal form using [call-by-name reduction](https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name).
