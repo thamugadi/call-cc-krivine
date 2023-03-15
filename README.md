@@ -1,7 +1,6 @@
 # call-cc-krivine
 
 **Work in progress.**
-todo: update readme 
 
 [A web version, compiled with the GHC 9.6 Javascript build, is available here](https://thamugadi.github.io/)
 
