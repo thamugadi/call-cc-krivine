@@ -3,7 +3,7 @@
 **Work in progress.**
 todo: update readme 
 
-**A web version, compiled with the GHC 9.6 Javascript build, is available there: https://thamugadi.github.io/ **
+[A web version, compiled with the GHC 9.6 Javascript build, is available here](https://thamugadi.github.io/)
 
 A Krivine machine for the call-by-name reduction of lambda calculus (with call/cc & clock) expressions in Haskell.  
   
