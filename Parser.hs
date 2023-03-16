@@ -24,13 +24,22 @@ parseVar :: Parser Term
 parseVar = lexeme $ Var <$> some (alphaNumChar <|> char '/')
 
 parseLambda :: Parser Term
-parseLambda = lexeme $ symbol "\\" *> (mulLambda <$> some parseVar <* symbol ".") <*> parseTerm where
+parseLambda = lexeme $ symbol "\\" *> (mulLambda <$> some parseVar <* symbol ".") <*> parseTerm
 
 parseParens :: Parser Term
-parseParens = between (symbol "(") (symbol ")") parseTerm
+parseParens = symbol "(" *> parseTerm <* symbol ")"
 
 parseAtom :: Parser Term
-parseAtom = parseVar <|> parseLambda <|> parseParens
+parseAtom = parseCont <|> parseVar <|> parseLambda <|> parseParens
+
+parseCont :: Parser Term
+parseCont = lexeme $ (optional $ symbol "continuation") *> (parseCont2 <|> parseCont1)
+
+parseCont1 :: Parser Term
+parseCont1 = Cont [] <$ (symbol "[" *> symbol "]")
+
+parseCont2 :: Parser Term
+parseCont2 = Cont <$> (symbol "[" *> sepBy parseTerm (symbol ",") <* symbol "]")
 
 parseApply :: Parser Term
 parseApply = foldl1 App <$> some parseAtom
