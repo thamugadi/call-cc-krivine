@@ -21,7 +21,7 @@ symbol :: String -> Parser String
 symbol = L.symbol sc
 
 parseVar :: Parser Term
-parseVar = lexeme $ Var <$> some alphaNumChar
+parseVar = lexeme $ Var <$> some (alphaNumChar <|> char '/')
 
 parseLambda :: Parser Term
 parseLambda = lexeme $ symbol "\\" *> (mulLambda <$> some parseVar <* symbol ".") <*> parseTerm where
