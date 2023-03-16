@@ -15,11 +15,19 @@ removeTags1 (a:s) b
 removeTags :: String -> String
 removeTags s = removeTags1 s False
 
+removeCommaR :: String -> String
+removeCommaR (' ':',':xs) = xs
+removeCommaR (x:xs) = x : removeComma xs
+removeCommaR [] = []
+
+removeComma :: String -> String
+removeComma = (reverse . removeCommaR . reverse)
+
 t2str :: Term -> String
 t2str (Var a)      = a
 t2str (Lambda x e) = "λ"++(t2str x)++"."++(t2str e)
 t2str (App a b)    = "("++(t2str a)++" "++(t2str b)++")"
-t2str (Cont c)     = "continuation " ++ "[" ++ ((init . init) $ concat $ (map (\x -> (t2str x ++ ", ")) c)) ++ "]"
+t2str (Cont c)     = removeComma $ "continuation " ++ "[" ++ (concat $ (map (\x -> (t2str x ++ ", ")) c)) ++ "]"
 t2str (Instr n)    = "instr n°" ++ show n
 
 s2str :: [Term] -> String -> String
