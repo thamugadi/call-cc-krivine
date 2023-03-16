@@ -33,13 +33,10 @@ parseAtom :: Parser Term
 parseAtom = parseCont <|> parseVar <|> parseLambda <|> parseParens
 
 parseCont :: Parser Term
-parseCont = lexeme $ (optional $ symbol "continuation") *> (parseCont2 <|> parseCont1)
+parseCont = lexeme $ (optional $ symbol "continuation") *> parseCont1
 
 parseCont1 :: Parser Term
-parseCont1 = Cont [] <$ (symbol "[" *> symbol "]")
-
-parseCont2 :: Parser Term
-parseCont2 = Cont <$> (symbol "[" *> sepBy parseTerm (symbol ",") <* symbol "]")
+parseCont1 = Cont <$> (symbol "[" *> sepBy parseTerm (symbol ",") <* symbol "]")
 
 parseApply :: Parser Term
 parseApply = foldl1 App <$> some parseAtom
