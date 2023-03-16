@@ -24,8 +24,7 @@ parseVar :: Parser Term
 parseVar = lexeme $ Var <$> some alphaNumChar
 
 parseLambda :: Parser Term
-parseLambda = lexeme $ lambda *> (mulLambda <$> some parseVar <* symbol ".") <*> parseTerm where
-  lambda = symbol "λ" <|> symbol "lambda" <|> symbol "\\"
+parseLambda = lexeme $ symbol "\\" *> (mulLambda <$> some parseVar <* symbol ".") <*> parseTerm where
 
 parseParens :: Parser Term
 parseParens = between (symbol "(") (symbol ")") parseTerm
