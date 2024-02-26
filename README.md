@@ -5,18 +5,10 @@
 [A web version, compiled with the GHC 9.6 Javascript build, is available here](https://aramya.neocities.org/)
 
 A Krivine machine for the call-by-name reduction of lambda calculus (with call/cc & clock) expressions in Haskell.  
-  
-[In his paper](https://www.irif.fr/~krivine/articles/lazymach.pdf), Jean-Louis Krivine describes his machine for the reduction of lambda calculus expressions into head normal form using [call-by-name reduction](https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name).
-  
-The last chapter is about the addition of a call/cc instruction (call-with-current-continuation).  
-  
-This program is based on a [compact representation of the Krivine machine](https://hal.inria.fr/hal-01479035/document) to which I added the transition for continuation.  
     
 ``t ⋆ π`` describes a state, where ``t`` is a term and ``π`` is a stack of terms. Pushing ``u`` on  ``π`` is written ``u : π``. ``n`` is the number of instructions executed so far. 
   
 To implement ``call/cc``, we allow ourselves to have a term that carries a stack in the form ``continuation π``.  
-
-As for the ``clock`` instruction, it is an instruction [described in this paper](https://www.irif.fr/~krivine/articles/Lacombe.pdf) that gives the number of instructions executed since the boot. 
 
 *Before* |*After*|
 |- |-  
@@ -25,6 +17,3 @@ As for the ``clock`` instruction, it is an instruction [described in this paper]
 |``call/cc ⋆ f : π`` |``f ⋆ continuation π : π`` 
 | ``continuation π₁ ⋆ s : π₂`` | ``s ⋆ π₁`` 
 | ``clock ⋆ s : π`` | ``s ⋆ n : π``
-
-
-[A similar transition table for SKI combinators is described in this paper from Krivine.](https://www.irif.fr/~krivine/articles/Lacombe.pdf) (p. 5)
